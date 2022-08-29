@@ -21,8 +21,7 @@ public class Follow : MonoBehaviour
     void Start()
     {
         CheckTarget();
-        FindAgent();
-        FindPatrol();
+        GetReferences();
     }
 
     void Update()
@@ -42,13 +41,9 @@ public class Follow : MonoBehaviour
         this.enabled = false;
     }
     
-    private void FindAgent()
+    private void GetReferences()
     {
         agent = GetComponent<NavMeshAgent>();
-    }
-    
-    private void FindPatrol()
-    {
         patrol = GetComponent<Patrol>();
     }
     
