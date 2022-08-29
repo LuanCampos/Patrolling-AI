@@ -3,19 +3,19 @@ using UnityEngine.AI;
 
 [RequireComponent(typeof(NavMeshAgent))]
 
-public class Patrolling : MonoBehaviour
+public class Patrol : MonoBehaviour
 {
     [Header("Defines Patrol Area:")]
     [SerializeField] private Vector3 center;
     [SerializeField] private Vector3 size;
     
     private NavMeshAgent agent;
-    private float originalStopDistance;
+    private float stoppingDistance;
     
     void Start()
     {
         FindAgent();
-        GetOriginalStopDistance();
+        GetStoppingDistance();
         SetRandomDestination();
     }
 
@@ -25,14 +25,26 @@ public class Patrolling : MonoBehaviour
             SetRandomDestination();
     }
     
+    void OnEnable()
+    {
+        if (agent)
+            agent.stoppingDistance = 0f;
+    }
+    
+    void OnDisable()
+    {
+        if (agent)
+            agent.stoppingDistance = stoppingDistance;
+    }
+    
     private void FindAgent()
     {
         agent = GetComponent<NavMeshAgent>();
     }
     
-    private void GetOriginalStopDistance()
+    private void GetStoppingDistance()
     {
-        originalStopDistance = agent.stoppingDistance;
+        stoppingDistance = agent.stoppingDistance;
     }
     
     private bool HasArrive()
@@ -77,17 +89,5 @@ public class Patrolling : MonoBehaviour
     {
         Gizmos.color = new Color(1, 0, 0, .5F);
         Gizmos.DrawSphere(agent.destination + new Vector3(0,.5f,0), .25f);
-    }
-    
-    void OnEnable()
-    {
-        if (agent)
-            agent.stoppingDistance = 0f;
-    }
-    
-    void OnDisable()
-    {
-        if (agent)
-            agent.stoppingDistance = originalStopDistance;
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("[Movement Variables]")]
-    [SerializeField] private float walkSpeed = 1.3f;
-    [SerializeField] private float runSpeed = 2f;
-    [SerializeField] private float lookAtSpeed = 3f;
+    [SerializeField] private float walkSpeed = 4f;
+    [SerializeField] private float runSpeed = 4.5f;
+    [SerializeField] private float lookAtSpeed = .3f;
     
     private Transform mainCamera;
     private Vector3 input;

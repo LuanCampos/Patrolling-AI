@@ -5,16 +5,18 @@ using UnityEngine.AI;
 
 public class Follow : MonoBehaviour
 {
-    [Header("Defines Following Target:")]
+    [Header("Defines Target:")]
     [SerializeField] private Transform target;
+    
+    [Header("Defines Search Parameter:")]
     [SerializeField] [Range(0, 100)] private float visionDepth;
     [SerializeField] [Range(0, 360)] private float visionAngle;
     
     [Header("Editor Visualization:")]
-    [SerializeField] [Range(2, 200)] private int raycastAmount = 100;
+    [SerializeField] [Range(2, 200)] private int raycastAmount;
     
     private NavMeshAgent agent;
-    private Patrolling patrol;
+    private Patrol patrol;
     
     void Start()
     {
@@ -47,7 +49,7 @@ public class Follow : MonoBehaviour
     
     private void FindPatrol()
     {
-        patrol = GetComponent<Patrolling>();
+        patrol = GetComponent<Patrol>();
     }
     
     private void LookForTarget()
@@ -88,7 +90,7 @@ public class Follow : MonoBehaviour
     private void FollowTarget()
     {
         agent.SetDestination(target.position);
-        SetPatrolling(false);
+        SetPatrol(false);
     }
     
     private void ContinueToDestination()
@@ -99,7 +101,7 @@ public class Follow : MonoBehaviour
         if (CanSeeTarget())
             FollowTarget();
         else
-            SetPatrolling(true);
+            SetPatrol(true);
     }
     
     private bool HasArrive()
@@ -107,7 +109,7 @@ public class Follow : MonoBehaviour
         return agent.remainingDistance <= agent.stoppingDistance;
     }
     
-    private void SetPatrolling(bool isEnable)
+    private void SetPatrol(bool isEnable)
     {
         if (patrol)
             patrol.enabled = isEnable;
