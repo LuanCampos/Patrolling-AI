@@ -3,11 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
-{
-    [Header("Camera Movement:")]    
-    [Tooltip("Less that 1 to smoother movements, more than 1 to faster movements")]
-    [SerializeField] private float smoothness = 1f;
-    
+{    
 	private Camera cam;
     private Transform player;
 	private Vector3 offset;
@@ -20,7 +16,7 @@ public class CameraFollow : MonoBehaviour
 	
 	void Update()
 	{
-		GetZoomInput();
+		SetZoom();
 	}
 
     void LateUpdate()
@@ -40,7 +36,7 @@ public class CameraFollow : MonoBehaviour
         transform.position = offset;
     }
 	
-	private void GetZoomInput()
+	private void SetZoom()
 	{
 		if (Input.mouseScrollDelta.y < 0 && Vector3.Distance(player.position, transform.position) < 50f)
 			offset -= (player.position - transform.position).normalized;
@@ -51,7 +47,7 @@ public class CameraFollow : MonoBehaviour
     
     private void FollowThePlayer()
     {
-        transform.position = Vector3.Lerp(transform.position, PlayerPosition() + offset, smoothness);
+        transform.position = PlayerPosition() + offset;
 		transform.LookAt(player);
     }
     
