@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
-{    
+{
+	[Header("Camera Positioning:")]
+    [SerializeField] Vector3 offset;
+	
 	private Camera cam;
     private Transform player;
-	private Vector3 offset;
     
     void Start()
     {
@@ -28,7 +28,6 @@ public class CameraFollow : MonoBehaviour
     {
 		cam = GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        offset = transform.position - player.position;
     }
     
     private void SetInitialPositioning()
@@ -39,10 +38,10 @@ public class CameraFollow : MonoBehaviour
 	private void SetZoom()
 	{
 		if (Input.mouseScrollDelta.y < 0 && Vector3.Distance(player.position, transform.position) < 50f)
-			offset -= (player.position - transform.position).normalized;
+			offset += offset.normalized;
 		
 		if (Input.mouseScrollDelta.y > 0 && Vector3.Distance(player.position, transform.position) > 5f)
-			offset += (player.position - transform.position).normalized;
+			offset -= offset.normalized;
 	}
     
     private void FollowThePlayer()
@@ -53,6 +52,6 @@ public class CameraFollow : MonoBehaviour
     
     private Vector3 PlayerPosition()
     {
-        return new Vector3(player.position.x, player.position.y, player.position.z);
+        return player.position;
     }
 }
