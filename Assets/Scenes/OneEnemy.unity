@@ -767,7 +767,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalPosition: {x: 5, y: 3, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1305,7 +1305,7 @@ Transform:
   m_GameObject: {fileID: 1361296136}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 30, y: 1, z: 30}
+  m_LocalScale: {x: 60, y: 1, z: 60}
   m_Children: []
   m_Father: {fileID: 1661428774}
   m_RootOrder: 0
@@ -1512,9 +1512,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1711583743}
+  - component: {fileID: 1711583741}
   - component: {fileID: 1711583742}
   - component: {fileID: 1711583744}
-  - component: {fileID: 1711583741}
   - component: {fileID: 1711583740}
   - component: {fileID: 1711583739}
   - component: {fileID: 1711583738}
@@ -1620,8 +1620,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3048954b0c2aeec4998284464a702c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  center: {x: 0, y: 0, z: -1.5}
-  size: {x: 25, y: 0, z: 22}
+  center: {x: -0.39, y: 0, z: -1.6}
+  size: {x: 24.91, y: 0, z: 24.1}
 --- !u!4 &1711583743
 Transform:
   m_ObjectHideFlags: 0
@@ -1651,8 +1651,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 896976926}
   visionDepth: 15
-  visionAngle: 120
-  raycastAmount: 20
+  visionAngle: 150
+  raycastAmount: 120
 --- !u!1 &2028300174
 GameObject:
   m_ObjectHideFlags: 0

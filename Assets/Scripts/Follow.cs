@@ -8,7 +8,7 @@ public class Follow : MonoBehaviour
     [Header("Defines Target:")]
     [SerializeField] private Transform target;
     
-    [Header("Defines Search Parameter:")]
+    [Header("Defines Search Parameters:")]
     [SerializeField] [Range(0, 100)] private float visionDepth;
     [SerializeField] [Range(0, 360)] private float visionAngle;
     
@@ -27,6 +27,11 @@ public class Follow : MonoBehaviour
     void Update()
     {
         LookForTarget();
+    }
+    
+    void OnDrawGizmosSelected()
+    {
+        DrawVision();
     }
     
     private void CheckTarget()
@@ -70,6 +75,17 @@ public class Follow : MonoBehaviour
         return Vector3.Angle(target.position - transform.position, transform.forward);
     }
     
+    private void ContinueToDestination()
+    {
+        if (!HasArrive())
+            return;
+        
+        if (CanSeeTarget())
+            FollowTarget();
+        else
+            SetPatrol(true);
+    }
+    
     private bool CanSeeTarget()
     {
         Ray ray = new Ray(transform.position, target.position - transform.position);
@@ -88,17 +104,6 @@ public class Follow : MonoBehaviour
         SetPatrol(false);
     }
     
-    private void ContinueToDestination()
-    {
-        if (!HasArrive())
-            return;
-        
-        if (CanSeeTarget())
-            FollowTarget();
-        else
-            SetPatrol(true);
-    }
-    
     private bool HasArrive()
     {
         return agent.remainingDistance <= agent.stoppingDistance;
@@ -108,11 +113,6 @@ public class Follow : MonoBehaviour
     {
         if (patrol)
             patrol.enabled = isEnable;
-    }
-    
-    void OnDrawGizmosSelected()
-    {
-        DrawVision();
     }
     
     private void DrawVision()

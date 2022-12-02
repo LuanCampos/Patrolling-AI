@@ -10,12 +10,12 @@ public class Patrol : MonoBehaviour
     [SerializeField] private Vector3 size;
     
     private NavMeshAgent agent;
-    private float stoppingDistance;
+    private float originalStopDist;
     
     void Start()
     {
         FindAgent();
-        GetStoppingDistance();
+        GetOriginalStoppingDistance();
         SetRandomDestination();
     }
 
@@ -28,13 +28,21 @@ public class Patrol : MonoBehaviour
     void OnEnable()
     {
         if (agent)
-            agent.stoppingDistance = 0f;
+            SetStoppingDistance(0f);
     }
     
     void OnDisable()
     {
         if (agent)
-            agent.stoppingDistance = stoppingDistance;
+            SetStoppingDistance(originalStopDist);
+    }
+    
+    void OnDrawGizmosSelected()
+    {
+        DrawPatrolArea();
+        
+        if (agent)
+            DrawDestinationPoint();
     }
     
     private void FindAgent()
@@ -42,24 +50,14 @@ public class Patrol : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
     }
     
-    private void GetStoppingDistance()
+    private void GetOriginalStoppingDistance()
     {
-        stoppingDistance = agent.stoppingDistance;
-    }
-    
-    private bool HasArrive()
-    {
-        return agent.remainingDistance <= agent.stoppingDistance;
+        originalStopDist = agent.stoppingDistance;
     }
     
     private void SetRandomDestination()
     {
-        SetDestination(GetRandomPointInPatrolArea());
-    }
-    
-    private void SetDestination(Vector3 goal)
-    {
-        agent.SetDestination(goal);
+        agent.SetDestination(GetRandomPointInPatrolArea());
     }
     
     private Vector3 GetRandomPointInPatrolArea()
@@ -71,12 +69,14 @@ public class Patrol : MonoBehaviour
         return center + new Vector3(x, y, z);
     }
     
-    void OnDrawGizmosSelected()
+    private bool HasArrive()
     {
-        DrawPatrolArea();
-        
-        if (agent)
-            DrawDestinationPoint();
+        return agent.remainingDistance <= agent.stoppingDistance;
+    }
+    
+    private void SetStoppingDistance(float newStopDist)
+    {
+        agent.stoppingDistance = newStopDist;
     }
     
     private void DrawPatrolArea()
